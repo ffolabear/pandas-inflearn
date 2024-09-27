@@ -105,6 +105,7 @@ if __name__ == '__main__':
     print(cols)
     cols.remove('iso2')
     cols.insert(1, 'iso2')
+    df_final = df_final[cols]
     cols[1] = 'Country_Flag'
     print(cols)
     df_final.columns = cols
