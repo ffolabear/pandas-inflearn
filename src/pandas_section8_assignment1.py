@@ -66,7 +66,8 @@ def generate_dataframe_by_path(PATH):
         else:
             final_doc = pd.merge(final_doc, doc, how='outer', left_index=True, right_index=True)
 
-    return result_doc
+    final_doc = final_doc.fillna(0)
+    return final_doc
 
 
 def create_flag_link(row):
@@ -80,7 +81,6 @@ def convert_country_to_flag():
 
 if __name__ == '__main__':
     df_confirmed = generate_dataframe_by_path(PATH)
-    print(df_confirmed)
 
     # 8. 모든 컬럼을 정수로 변경
     df_confirmed = df_confirmed.astype('int64')
@@ -92,20 +92,22 @@ if __name__ == '__main__':
                                na_values='')
     country_info = country_info[['iso2', 'Country_Region']]
     country_info = country_info.drop_duplicates(subset='Country_Region', keep='last')
+    print(country_info.columns)
     df_final = pd.merge(df_confirmed, country_info, how='left', on='Country_Region')
     print(country_info.columns)
 
     # # 나라 코드가 없는 컬럼 제거
-    # df_final = df_final.dropna(subset=['iso2'])
-    # df_final['iso2'] = df_final['iso2'].apply(create_flag_link)
-    #
+    df_final = df_final.dropna(subset=['iso2'])
+    df_final['iso2'] = df_final['iso2'].apply(create_flag_link)
+
     # # 10. iso2 코드를 국기 이미지로 변경
-    # cols = df_final.columns.tolist()
-    #
-    # cols.remove('iso2')
-    # cols.insert(1, 'iso2')
-    # cols[1] = 'Country_Flag'
-    # df_final.columns = cols
-    #
+    cols = df_final.columns.tolist()
+    print(cols)
+    cols.remove('iso2')
+    cols.insert(1, 'iso2')
+    cols[1] = 'Country_Flag'
+    print(cols)
+    df_final.columns = cols
+
     # # csv 저장
-    # df_final.to_csv("COVID-19-master/final_covid_data_for_graph.csv")
+    df_final.to_csv("../data/COVID-19-master/final_covid_data_for_graph.csv")
