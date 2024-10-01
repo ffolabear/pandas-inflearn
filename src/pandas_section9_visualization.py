@@ -1,7 +1,10 @@
 import chart_studio.plotly as py
+import plotly.express as px
+from plotly import graph_objects as go
 import cufflinks as cf
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 cf.go_offline(connected=True)
 
@@ -19,5 +22,10 @@ print(df.head(), '\n')
 # print(cf.help('bar'))
 
 # 바 그래프 그리기
-df.iplot(kind='bar', colors=['rgba(255, 153, 51, 1.0)', 'rgba(0, 204, 204, 1.0)'])
-print()
+# df.plot(kind='bar')
+# plt.show()
+fig = px.line(df, x='A', y='B')
+fig.
+fig.show()
+
+# bar 그래프 테스트
