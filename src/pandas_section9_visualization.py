@@ -14,6 +14,7 @@ print(np.random.rand(5, 2), '\n')
 
 # 데이터프레임 생성
 df = pd.DataFrame(np.random.rand(10, 2), columns=['A', 'B'])
+df.columns = ['Column 1', 'Column 2']
 print(df.head(), '\n')
 
 # 데이터프레임으로 그래프 그리기
@@ -22,10 +23,22 @@ print(df.head(), '\n')
 # print(cf.help('bar'))
 
 # 바 그래프 그리기
+# fig = px.bar(df, x='A', y='B')
+# fig.show()
 # df.plot(kind='bar')
 # plt.show()
-fig = px.line(df, x='A', y='B')
-fig.
-fig.show()
 
-# bar 그래프 테스트
+
+# 누적 그래프 생성
+# df.plot(kind='bar', stacked=True)
+# plt.show()
+
+# 가로 바 그래프 생성
+# df.plot(kind='barh', stacked=True)
+# plt.show()
+
+# 라인 그래프 그리기
+df.plot(kind='scatter', x='Column 1', y='Column 2', fill=True)
+plt.plot(df['Column 1'], color='green')
+plt.plot(df['Column 2'], color='blue')
+plt.show()
