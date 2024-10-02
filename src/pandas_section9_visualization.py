@@ -38,7 +38,7 @@ print(df.head(), '\n')
 # plt.show()
 
 # 라인 그래프 그리기
-df.plot(kind='scatter', x='Column 1', y='Column 2', fill=True)
+df.plot(kind='scatter', x='Column 1', y='Column 2')
 plt.plot(df['Column 1'], color='green')
 plt.plot(df['Column 2'], color='blue')
 plt.show()
