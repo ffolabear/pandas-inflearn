@@ -1,5 +1,6 @@
+import numpy as np
+import pandas as pd
 import plotly.graph_objects as go
-
 
 # 테스트
 
@@ -8,7 +9,11 @@ fig.add_trace(go.Scatter(
     x=[1, 2, 3],
     y=[1, 2, 3],
 ))
-fig.show()
+# fig.show()
+
+# 라인 그래프 테스트
+df = pd.DataFrame(np.random.rand(10, 2), columns=['A', 'B'])
+print(df)
 
 # 패턴 코드로 라인 그래프 그리기
 
@@ -20,3 +25,39 @@ fig.show()
 #       각 필드 확인: https://plotly.com/python/reference/
 # fig.show() 로 그래프를 보여줌
 
+fig = go.Figure()
+fig.add_trace(  # 그래프가 그려진 상태
+    go.Scatter(
+        x=df.index, y=df['A']
+    )
+)
+
+# 옵션은 딕셔너리로 넣는게 가장 쉬움
+fig.update_layout(
+    {
+        "title": {
+            "text": "Graph with go.Scatter",
+            "font": {
+                "size": 15
+            }
+        },
+        "showlegend": True,
+        "xaxis": {
+            "title": "random number"
+        },
+        "yaxis": {
+            "title": "A"
+        }
+    }
+)
+
+# 복합 라인그래프
+
+# 라인 추가
+fig.add_trace(
+    go.Scatter(
+        x=df.index, y=df['B'], mode='lines+markers+text', name='B', text=df.index, textposition='top center'
+    )
+)
+
+fig.show()
