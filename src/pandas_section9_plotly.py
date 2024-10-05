@@ -56,8 +56,53 @@ fig.update_layout(
 # 라인 추가
 fig.add_trace(
     go.Scatter(
+        # 가장 많이 쓰이는 옵션
         x=df.index, y=df['B'], mode='lines+markers+text', name='B', text=df.index, textposition='top center'
     )
 )
 
-fig.show()
+# fig.show()
+
+# 바그래프 그리기
+
+fig2 = go.Figure()
+fig2.add_trace(go.Scatter())
+
+# textposition='auto' 는 그래프 안에 값 넣는 옵션
+
+fig2.add_trace(
+    go.Bar(
+        x=df.index, y=df['A'], name='A', text=df['A'], textposition='auto', texttemplate='%{y:.2f}'
+    )
+)
+fig2.add_trace(
+    go.Bar(
+        x=df.index, y=df['B'], name='B', text=df['B'], textposition='auto', texttemplate='%{y:.2f}'
+    )
+)
+fig2.update_layout(
+    {
+        "title": {
+            "text": "Graph with <b>go.Bar</b>",
+            "x": 0.5,
+            "y": 0.9,
+            "font": {
+                "size": 20
+            }
+        },
+        "showlegend": True,
+        "xaxis": {
+            "title": "random number",
+            "showticklabels": True,
+            "dtick": 1
+
+        },
+        "yaxis": {
+            "title": "A"
+        },
+        "autosize": False,
+        "width": 800,
+        "height": 340
+    }
+)
+fig2.show()
