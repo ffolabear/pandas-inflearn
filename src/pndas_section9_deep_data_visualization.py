@@ -10,7 +10,7 @@ df = pd.DataFrame({
 # describe 함수로 평균, 표준편차 등등 확인가능
 # 50% 는 중간값 의미
 # 원소의 갯수가 짝수일 경우 가운데 두개를 더하고 2로 나눈 값이 중간값
-print(df.describe())
+# print(df.describe())
 
 # 데이터의 종류
 
@@ -48,7 +48,7 @@ fig2.add_trace(
         xbins=dict(  # bins used for histogram
             start=0,
             end=1.0,
-            size=0.05       # 자르는 단위
+            size=0.05  # 자르는 단위
         ),
         marker_color='#F50057'
     )
@@ -61,4 +61,44 @@ fig2.update_layout(
     bargap=0.1,  # gap between bars of adjacent location coordinates
 
 )
-fig2.show()
+# fig2.show()
+
+# 범주형 데이터
+data = {
+    'year': ['2017', '2017', '2019', '2020', '2021', '2021'],
+    'grade': ['C', 'C', 'B', 'A', 'B', 'E'],
+}
+
+df3 = pd.DataFrame(data)
+
+# 그룹화하기
+df4 = df3.groupby("grade").count()
+df5 = df3.groupby("year").count()
+# print(df1, '\n', df2)
+
+# 수준별로 데이터 갯수 세기
+# print("value_counts() : {}\n".format(df3['year'].value_counts()))
+# print("size : {}\n".format(df3['year'].size))
+# print("count() : {}\n".format(df3['year'].count()))
+# print("unique() : {}\n".format(df3['year'].unique()))
+
+# 막대 그래프 (절대 빈도 확인)
+fig3 = go.Figure()
+fig3.add_trace(
+    go.Pie(
+        labels=df3['grade'], values=df3['year'],
+    )
+)
+# fig3.show()
+
+# 원 그래프 (상대 빈도 확인)
+df3.reset_index()
+
+fig3 = go.Figure()
+fig3.add_trace(
+    go.Pie(
+        labels=df3['grade'], values=df3['year']
+    )
+)
+
+fig3.show()
