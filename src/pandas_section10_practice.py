@@ -12,7 +12,7 @@ print(doc.head(5), '\n')
 print(doc.info(), '\n')
 
 # 4. 전체 열의 수 확인하기
-
+print(len(doc.columns), '\n')
 
 # 5. 열의 이름 리스트로 가져오기
 print(doc.columns, '\n')
@@ -21,7 +21,7 @@ print(doc.columns, '\n')
 print(doc.index, '\n')
 
 # 7. 다섯 숫자 요약(5 number summary) 확인하기
-
+print(doc.describe(), '\n')
 
 # 추가 문법 pandas.DataFrame.copy
 
