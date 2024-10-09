@@ -5,15 +5,8 @@ import pandas as pd
 
 PATH = "../data/"
 
-products = pd.read_csv(PATH + "olist_products_dataset.csv", encoding='utf-8-sig')
 customers = pd.read_csv(PATH + "olist_customers_dataset.csv", encoding='utf-8-sig')
-geolocation = pd.read_csv(PATH + "olist_geolocation_dataset.csv", encoding='utf-8-sig')
-order_items = pd.read_csv(PATH + "olist_order_items_dataset.csv", encoding='utf-8-sig')
 payments = pd.read_csv(PATH + "olist_order_payments_dataset.csv", encoding='utf-8-sig')
-reviews = pd.read_csv(PATH + "olist_order_reviews_dataset.csv", encoding='utf-8-sig')
-orders = pd.read_csv(PATH + "olist_orders_dataset.csv", encoding='utf-8-sig')
-sellers = pd.read_csv(PATH + "olist_sellers_dataset.csv", encoding='utf-8-sig')
-category_name = pd.read_csv(PATH + "product_category_name_translation.csv", encoding='utf-8-sig')
 
 # 주요 질문(탐색하고자 하는 질문 리스트)
 #   얼마나 많은 고객이 있는가?
