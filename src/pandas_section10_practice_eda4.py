@@ -35,8 +35,16 @@ merged_order['order_purchase_timestamp'] = pd.to_datetime(merged_order['order_pu
 
 # 분석하려는 데이터를 만들기 위해 컬럼을 복사 - 원본 데이터의 손상을 막기 위해
 merged_order_payment_date = merged_order[['order_purchase_timestamp', 'payment_value']]
-print(merged_order_payment_date)
+# print(merged_order_payment_date)
 
-# 시간별로 데이터를 분류
+# 시간별로 데이터를 분류 - 월별로 합계 구하기
+# 인덱스인 컬럼으로 groupby 할경우 key 를 써주지 않아도 됨
 merged_order_month_sum = merged_order_payment_date.groupby(pd.Grouper(key='order_purchase_timestamp', freq='ME')).sum()
-print(merged_order_month_sum.head())
+# print(merged_order_month_sum.head())
+# 리스트 형식으로 접근과 슬라이싱으로 접근둘다 가능
+# merged_order_month_sum['payment_value'][3:]
+# merged_order_month_sum['payment_value'][3]
+
+# 최대 거래액을 기록한 월
+max_price_value = merged_order_month_sum[merged_order_month_sum['payment_value'] == merged_order_month_sum['payment_value'].max()]
+print(max_price_value)
