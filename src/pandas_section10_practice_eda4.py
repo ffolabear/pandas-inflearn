@@ -4,6 +4,8 @@ PATH = "../data/"
 payments = pd.read_csv(PATH + "olist_order_payments_dataset.csv", encoding='utf-8-sig')
 orders = pd.read_csv(PATH + "olist_orders_dataset.csv", encoding='utf-8-sig')
 
+# 일별, 주별, 월별 판매 트렌드는?
+
 # 시계열 데이터 다루기
 
 df = pd.DataFrame({'order': ['2020-01-01 07:10:00',
@@ -24,5 +26,17 @@ df['order'] = pd.to_datetime(df['order'], format='%Y-%m-%d %H:%M:%S', errors='ra
 orders = orders.dropna()
 payments = payments.groupby('order_id').sum()
 merged_order = pd.merge(orders, payments, on='order_id')
-print(merged_order.info())              # 현재는 datetime 객체가 아닌 object 타입이므로 변환이 필요한 상황
+# print(merged_order.info())              # 현재는 datetime 객체가 아닌 object 타입이므로 변환이 필요한 상황
 
+
+merged_order['order_purchase_timestamp'] = pd.to_datetime(merged_order['order_purchase_timestamp'],
+                                                          format='%Y-%m-%d %H:%M:%S', errors='raise')
+
+
+# 분석하려는 데이터를 만들기 위해 컬럼을 복사 - 원본 데이터의 손상을 막기 위해
+merged_order_payment_date = merged_order[['order_purchase_timestamp', 'payment_value']]
+print(merged_order_payment_date)
+
+# 시간별로 데이터를 분류
+merged_order_month_sum = merged_order_payment_date.groupby(pd.Grouper(key='order_purchase_timestamp', freq='ME')).sum()
+print(merged_order_month_sum.head())
