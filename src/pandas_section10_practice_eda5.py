@@ -16,9 +16,13 @@ merged_order['order_purchase_timestamp'] = pd.to_datetime(merged_order['order_pu
                                                           format='%Y-%m-%d %H:%M:%S', errors='raise')
 
 # 인덱스로 만들기
+print(merged_order_payment_date.index)
+# merged_order_payment_date = merged_order_payment_date.set_index('order_purchase_timestamp')
+# merged_order_payment_date.index = pd.to_datetime(merged_order_payment_date.index)
+
+merged_order_payment_date['order_purchase_timestamp'] = pd.to_datetime(merged_order_payment_date['order_purchase_timestamp'])
 merged_order_payment_date = merged_order_payment_date.set_index('order_purchase_timestamp')
+
 # 인덱스로 만들었기 때문에 컬럼을 쓰지 않아도 됨
-merged_order_month_count = merged_order_payment_date.groupby(pd.Grouper(freq='M')).count()
-
+merged_order_month_count = merged_order_payment_date.groupby(pd.Grouper(freq='ME')).count()
 print(merged_order_month_count.head())
-
